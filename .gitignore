@@ -1,0 +1,12 @@
+build/
+.vscode/
+.idea/
+*.user
+*.pro.user
+*.qrc
+*.qmlc
+*.o
+*.obj
+*.exe
+*.dll
+*.pdb
