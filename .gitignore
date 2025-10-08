@@ -10,3 +10,7 @@ build/
 *.exe
 *.dll
 *.pdb
+*.png
+TestMarket
+test_graph
+src/tests/testCandle.cpp
