@@ -49,8 +49,6 @@ int main() {
         // подпись цены (примерно)
         int priceLabel = (int)(maxPrice - i*(maxPrice - minPrice)/5);
         std::string label = std::to_string(priceLabel);
-        // простое рисование символов не делаем, просто для ориентира
-        // можно интегрировать с графической библиотекой для настоящих надписей
     }
 
     // Рисуем свечи и скользящее среднее
@@ -127,11 +125,11 @@ int main() {
         }
     }
 
-    std::string filename = "gold_candles_pro.png";
+    std::string filename = "gold_candles.png";
     if(stbi_write_png(filename.c_str(), width, height, 3, image.data(), width*3))
-        std::cout << "PRO-график сохранён в " << filename << std::endl;
+        std::cout << "график сохранён в " << filename << std::endl;
     else
-        std::cout << "Ошибка при сохранении PRO-графика!" << std::endl;
+        std::cout << "Ошибка при сохранении графика!" << std::endl;
 
     return 0;
 }

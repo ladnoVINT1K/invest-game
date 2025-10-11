@@ -25,14 +25,15 @@ void MarketModel::update() {
         double diffusion = state.volatility * Z;
         double seasonal = 0.01 * sin(2 * 3.14159 * dt / 365.0);
 
-        // 2. Случайный скачок (2% шанс, ±5%)
+        // 2. Случайный скачок (1% шанс, ±5%)
         double jump = 0.0;
-        if (jumpDist(gen) < 0.02) {
+        if (jumpDist(gen) < 0.01) {
             jump = state.price * ((jumpDist(gen) - 0.5) * 0.1);
         }
 
         // 3. Обновление цены
         state.price = state.price * exp(drift * dt - 0.5 * state.volatility * state.volatility + diffusion + seasonal) + jump;
+        state.price = std::max(state.price, 0.01);
         newCandle.close = state.price;
 
         // 4. High / Low за день
