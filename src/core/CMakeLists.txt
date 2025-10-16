@@ -6,6 +6,7 @@ add_library(core STATIC
     Deposit.cpp
     Bond.cpp
     GameAPI.cpp
+    Simulation.cpp
     core.hpp
 )
 
