@@ -71,10 +71,10 @@ double getProfit() const;
     Описание: Возвращает текущую общую прибыль портфеля (учитывая изменения стоимости всех активов).
 
 ## Методы торговли
-buy
-
+### buy
+```cpp
 void buy(const std::string& symbol, double amount);
-
+```
     symbol — символ актива.
 
     amount — сумма для инвестирования.
@@ -89,10 +89,10 @@ void buy(const std::string& symbol, double amount);
 
     После покупки сумма вычитается из капитала.
 
-sell
-
+### sell
+```cpp
 void sell(const std::string& symbol, double amount);
-
+```
     symbol — символ актива.
 
     amount — количество для продажи.
@@ -103,11 +103,11 @@ void sell(const std::string& symbol, double amount);
 
         Иначе количество уменьшается на указанную сумму, а капитал увеличивается на проданную сумму.
 
-Симуляция времени
-nextStep
-
+## Симуляция времени
+### nextStep
+```cpp
 void nextStep();
-
+```
     Описание: Переходит к следующему месяцу:
 
         Обновляет рыночную модель.
@@ -116,10 +116,10 @@ void nextStep();
 
         Увеличивает счётчик месяцев на 1.
 
-reset
-
+### reset
+```cpp
 void reset();
-
+```
     Описание: Сбрасывает состояние игры:
 
         Обнуляет счётчик месяцев.
@@ -128,8 +128,8 @@ void reset();
 
         Пересоздаёт рыночную модель с начальным состоянием.
 
-Пример использования
-
+## Пример использования
+```cpp
 GameAPI game(10000.0, 0.13);
 
 // Получаем информацию о рынке
@@ -144,3 +144,4 @@ game.nextStep();
 // Проверяем капитал и портфель
 double capital = game.getCapital();
 auto portfolio = game.getPortfolio();
+```
