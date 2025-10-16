@@ -2,6 +2,7 @@
 #include "MarketModel.h"
 #include <algorithm>
 #include <cmath>
+#include <iostream>
 
 double Investment::getProfit() {
     return amount_ * rate_;
@@ -23,4 +24,14 @@ void Investment::updatePrice(const MarketModel& market) {
     catch (...) {
         // если MarketModel не знает актив — ничего не делаем
     }
+}
+
+void Investment::reduceAmount(double value) {
+    if (value <= 0.0) return;
+
+    double oldAmount = amount_;
+    amount_ = std::max(0.0, amount_ - value);
+
+    std::cout << "[Investment] " << name_ << " reduced: -" 
+              << value << " (from " << oldAmount << " to " << amount_ << ")\n";
 }
