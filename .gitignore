@@ -13,5 +13,5 @@ build/
 *.png
 TestMarket
 test_graph
-src/tests/*.h
+src/tests/*.c
 src/tests/testCandle.cpp
