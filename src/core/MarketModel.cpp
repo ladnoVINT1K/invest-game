@@ -72,3 +72,29 @@ const std::deque<Candle>& MarketModel::getCandles(const std::string& symbol) con
     if(it != candles.end()) return it->second;
     return empty;
 }
+
+MarketModel::PriceForecast MarketModel::predictPrice(const std::string& symbol, int n) const {
+    PriceForecast result{};
+
+    auto it = assets.find(symbol);
+    if (it == assets.end() || n <= 0)
+        return result;
+
+    const auto& state = it->second;
+    double S0 = state.price;
+    double mu = state.trend;
+    double sigma = state.volatility;
+
+    // Математическое ожидание цены через n шагов
+    double expected = S0 * std::exp(mu * n);
+
+    // Стандартное отклонение (разброс)
+    double variance = std::exp(sigma * sigma * n) - 1.0;
+    double deviation = expected * std::sqrt(variance);
+
+    result.expected = expected;
+    result.min = std::max(0.0, expected - deviation);
+    result.max = expected + deviation;
+
+    return result;
+}

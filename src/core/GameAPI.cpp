@@ -60,3 +60,32 @@ void GameAPI::buy(const std::string& symbol, double amount) {
 void GameAPI::sell(const std::string& symbol, double amount) {
     sim_.sell(symbol, amount);
 }
+
+GameAPI::Forecast GameAPI::predictPrice(const std::string& symbol, int steps) const {
+    auto prediction = sim_.getMarket().predictPrice(symbol, steps);
+    Forecast f;
+    f.symbol = symbol;
+    f.expected = prediction.expected;
+    f.min = prediction.min;
+    f.max = prediction.max;
+    return f;
+}
+
+double GameAPI::getCurrentPrice(const std::string& symbol) const {
+    try {
+        return sim_.getMarket().getPrice(symbol);
+    } catch (...) {
+        return 0.0;
+    }
+}
+
+bool GameAPI::isGrowing(const std::string& symbol) const {
+    const auto& dq = sim_.getMarket().getCandles(symbol);
+    if (dq.size() < 2)
+        return false; // недостаточно данных
+
+    const auto& last = dq.back();
+    const auto& prev = dq[dq.size() - 2];
+
+    return last.close > prev.close;
+}

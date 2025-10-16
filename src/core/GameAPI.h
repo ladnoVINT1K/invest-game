@@ -25,6 +25,20 @@ public:
     void buy(const std::string& symbol, double amount);
     void sell(const std::string& symbol, double amount);
 
+    // === Прогнозы ===
+    struct Forecast {
+        std::string symbol;
+        double expected;
+        double min;
+        double max;
+    };
+
+    Forecast predictPrice(const std::string& symbol, int steps = 1) const;
+
+    // === Динамика ===
+    double getCurrentPrice(const std::string& symbol) const;
+    bool isGrowing(const std::string& symbol) const;
+
 private:
     Simulation sim_;
 };

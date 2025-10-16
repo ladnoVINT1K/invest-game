@@ -29,10 +29,17 @@ public:
     const std::deque<Candle>& getCandles(const std::string& symbol) const;
 
     const std::map<std::string, AssetState>& getAll() const { return assets; }
+    struct PriceForecast {
+        double expected; // ожидаемая цена
+        double min;      // нижняя граница (примерно -1σ)
+        double max;      // верхняя граница (+1σ)
+    };
+
+    PriceForecast predictPrice(const std::string& symbol, int n = 1) const;
 
 private:
     std::map<std::string, AssetState> assets;
     std::map<std::string, std::deque<Candle>> candles;
 
-    short maxCandles = 100; // сколько последних свечей хранить
+    short maxCandles = 100;
 };
