@@ -18,8 +18,9 @@ GameAPI(double startCapital, double taxRate);
 ```
 
 Методы получения рыночной информации
-getMarketAssets
 
+##getMarketAssets
+```cpp
 std::vector<std::map<std::string, double>> getMarketAssets() const;
 
     Описание: Возвращает текущее состояние всех активов на рынке.
@@ -31,9 +32,9 @@ std::vector<std::map<std::string, double>> getMarketAssets() const;
         "trend" — тренд актива.
 
         "volatility" — волатильность актива.
-
-getCandles
-
+```
+##getCandles
+```cpp
 std::vector<Candle> getCandles(const std::string& symbol) const;
 
     symbol — символ актива (например, "GOLD" или "BOND1").
@@ -41,7 +42,7 @@ std::vector<Candle> getCandles(const std::string& symbol) const;
     Описание: Возвращает историю цен (свечи) для указанного актива.
 
     Возвращает: Вектор объектов Candle. Если актив не найден — пустой вектор.
-
+```
 Методы работы с портфелем
 getPortfolio
 
