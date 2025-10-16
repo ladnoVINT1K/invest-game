@@ -13,5 +13,5 @@ build/
 *.png
 TestMarket
 test_graph
+src/tests/*.h
 src/tests/testCandle.cpp
-src/tests/stb_image_write.h
