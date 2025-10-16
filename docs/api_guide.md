@@ -17,9 +17,9 @@ GameAPI(double startCapital, double taxRate);
     Описание: Инициализирует портфель с заданным капиталом и ставкой налога, создаёт рыночную модель MarketModel и устанавливает счётчик месяцев в 0.
 ```
 
-Методы получения рыночной информации
+## Методы получения рыночной информации
 
-##getMarketAssets
+### getMarketAssets
 ```cpp
 std::vector<std::map<std::string, double>> getMarketAssets() const;
 
@@ -33,7 +33,7 @@ std::vector<std::map<std::string, double>> getMarketAssets() const;
 
         "volatility" — волатильность актива.
 ```
-##getCandles
+### getCandles
 ```cpp
 std::vector<Candle> getCandles(const std::string& symbol) const;
 
@@ -43,11 +43,11 @@ std::vector<Candle> getCandles(const std::string& symbol) const;
 
     Возвращает: Вектор объектов Candle. Если актив не найден — пустой вектор.
 ```
-Методы работы с портфелем
-getPortfolio
-
+## Методы работы с портфелем
+### getPortfolio
+```cpp
 std::vector<std::map<std::string, double>> getPortfolio() const;
-
+```
     Описание: Возвращает список всех инвестиций в портфеле.
 
     Возвращает: Вектор словарей с ключами:
@@ -58,19 +58,19 @@ std::vector<std::map<std::string, double>> getPortfolio() const;
 
         "rate" — процентная ставка (для депозитов и облигаций).
 
-getCapital
-
+### getCapital
+```cpp
 double getCapital() const;
-
+```
     Описание: Возвращает текущий капитал игрока (свободные денежные средства).
 
-getProfit
-
+### getProfit
+```cpp
 double getProfit() const;
-
+```
     Описание: Возвращает текущую общую прибыль портфеля (учитывая изменения стоимости всех активов).
 
-Методы торговли
+## Методы торговли
 buy
 
 void buy(const std::string& symbol, double amount);
