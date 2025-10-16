@@ -14,3 +14,4 @@ build/
 TestMarket
 test_graph
 src/tests/testCandle.cpp
+src/tests/stb_image_write.h
