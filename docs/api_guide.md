@@ -9,20 +9,20 @@
 
 ```cpp
 GameAPI(double startCapital, double taxRate);
-
+```
     startCapital — стартовый капитал игрока.
 
     taxRate — ставка налога на прибыль.
 
     Описание: Инициализирует портфель с заданным капиталом и ставкой налога, создаёт рыночную модель MarketModel и устанавливает счётчик месяцев в 0.
-```
+
 
 ## Методы получения рыночной информации
 
 ### getMarketAssets
 ```cpp
 std::vector<std::map<std::string, double>> getMarketAssets() const;
-
+```
     Описание: Возвращает текущее состояние всех активов на рынке.
 
     Возвращает: Вектор словарей с ключами:
@@ -32,17 +32,17 @@ std::vector<std::map<std::string, double>> getMarketAssets() const;
         "trend" — тренд актива.
 
         "volatility" — волатильность актива.
-```
+
 ### getCandles
 ```cpp
 std::vector<Candle> getCandles(const std::string& symbol) const;
-
+```
     symbol — символ актива (например, "GOLD" или "BOND1").
 
     Описание: Возвращает историю цен (свечи) для указанного актива.
 
     Возвращает: Вектор объектов Candle. Если актив не найден — пустой вектор.
-```
+
 ## Методы работы с портфелем
 ### getPortfolio
 ```cpp
