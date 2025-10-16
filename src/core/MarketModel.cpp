@@ -5,6 +5,7 @@
 
 MarketModel::MarketModel() {
     assets["GOLD"] = {4037.0, 0.0005, 0.02}; // цена, тренд, волатильность
+    assets["SILVER"] = {48.5, 0.0003, 0.025};
 }
 
 void MarketModel::update() {
