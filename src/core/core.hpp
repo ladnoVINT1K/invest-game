@@ -1,0 +1,16 @@
+// core.hpp
+#include "InvestmentAsset.h"
+#include "Portfolio.h"
+#include "MarketModel.h"
+#include "Metal.h"
+#include "Deposit.h"
+#include "Bond.h"
+#include "GameAPI.h"
+
+#include "InvestmentAsset.cpp"
+#include "Portfolio.cpp"
+#include "MarketModel.cpp"
+#include "Metal.cpp"
+#include "Deposit.cpp"
+#include "Bond.cpp"
+#include "GameAPI.cpp"

@@ -1,0 +1,25 @@
+qt_wrap_ui(UI_HEADERS
+    MainWindow.ui
+    PortfolioView.ui
+    MarketView.ui
+    SettingsDialog.ui
+    StatsWindow.ui
+)
+
+add_library(ui STATIC
+    MainWindow.cpp
+    PortfolioView.cpp
+    MarketView.cpp
+    SettingsDialog.cpp
+    StatsWindow.cpp
+    ${UI_HEADERS}
+)
+
+target_link_libraries(ui
+    PUBLIC
+        core
+        utils
+        Qt6::Widgets
+)
+
+target_include_directories(ui PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

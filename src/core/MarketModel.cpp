@@ -4,7 +4,7 @@
 #include <algorithm>
 
 MarketModel::MarketModel() {
-    assets["gold"] = {4037.0, 0.0005, 0.02}; // цена, тренд, волатильность
+    assets["GOLD"] = {4037.0, 0.0005, 0.02}; // цена, тренд, волатильность
 }
 
 void MarketModel::update() {
