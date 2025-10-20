@@ -29,17 +29,14 @@ std::vector<std::map<std::string, double>> GameAPI::getPortfolio() const {
     return data;
 }
 
-std::vector<std::map<std::string, double>> GameAPI::getMarketAssets() const {
-    std::vector<std::map<std::string, double>> result;
+std::vector<MarketAsset> GameAPI::getMarketAssets() const {
+    std::vector<MarketAsset> result;
     for (const auto& [symbol, state] : sim_.getMarket().getAll()) {
-        result.push_back({
-            {"price", state.price},
-            {"trend", state.trend},
-            {"volatility", state.volatility}
-        });
+        result.push_back({symbol, state.price, state.trend, state.volatility});
     }
     return result;
 }
+
 
 std::vector<Simulation::Snapshot> GameAPI::getHistory() const {
     return sim_.getHistory();

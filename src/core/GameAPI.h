@@ -4,6 +4,13 @@
 #include <vector>
 #include <map>
 
+struct MarketAsset {
+    std::string symbol;
+    double price;
+    double trend;
+    double volatility;
+};
+
 class GameAPI {
 public:
     GameAPI(double start = 10000, double tax = 0.17);
@@ -15,7 +22,7 @@ public:
     // === Получение данных ===
     std::vector<Candle> getCandles(const std::string& symbol) const;
     std::vector<std::map<std::string, double>> getPortfolio() const;
-    std::vector<std::map<std::string, double>> getMarketAssets() const;
+    std::vector<MarketAsset> getMarketAssets() const;
     std::vector<Simulation::Snapshot> getHistory() const;
 
     double getCapital() const;

@@ -6,7 +6,12 @@
 
 Simulation::Simulation(double initialCapital, double taxRate)
     : portfolio_(initialCapital, taxRate)
-{}
+{
+    int prewarmMonths = 12; // 12 месяцев "до игрока"
+    for (int i = 0; i < prewarmMonths; ++i) {
+        market_.update();
+    }
+}
 
 void Simulation::nextStep() {
     if (paused_) return;
