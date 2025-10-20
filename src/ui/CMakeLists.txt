@@ -18,8 +18,9 @@ add_library(ui STATIC
 target_link_libraries(ui
     PUBLIC
         core
-        utils
         Qt6::Widgets
+        Qt6::Charts
+        Qt6::Graphs
 )
 
 target_include_directories(ui PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

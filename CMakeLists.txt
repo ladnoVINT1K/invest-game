@@ -5,14 +5,13 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Включаем Qt (Widgets + Charts)
-find_package(Qt6 REQUIRED COMPONENTS Widgets Charts Test)
+find_package(Qt6 REQUIRED COMPONENTS Widgets Charts Test Graphs)
 
 # Пути к подпроектам
 add_subdirectory(src/core)
 # add_subdirectory(src/utils)
-# add_subdirectory(src/ui)
+add_subdirectory(src/ui)
 # add_subdirectory(src/tests)
-
 
 # Главный исполняемый файл
 # add_executable(InvestmentManager src/main.cpp)
@@ -24,6 +23,7 @@ target_link_libraries(InvestmentManager
         core
         Qt6::Widgets
         Qt6::Test
+        Qt6::Graphs
 )
 
 # Пути к заголовочным
