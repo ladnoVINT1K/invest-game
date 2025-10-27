@@ -14,7 +14,7 @@ public:
 
     // === Получение данных ===
     std::vector<Candle> getCandles(const std::string& symbol) const;
-    std::vector<std::map<std::string, double>> getPortfolio() const;
+    std::vector<std::pair<std::string, std::map<std::string, double>>> getPortfolio() const;
     std::vector<std::map<std::string, double>> getMarketAssets() const;
     std::vector<Simulation::Snapshot> getHistory() const;
 

@@ -17,14 +17,14 @@ std::vector<Candle> GameAPI::getCandles(const std::string& symbol) const {
     return std::vector<Candle>(dq.begin(), dq.end());
 }
 
-std::vector<std::map<std::string, double>> GameAPI::getPortfolio() const {
-    std::vector<std::map<std::string, double>> data;
+std::vector<std::pair<std::string, std::map<std::string, double>>> GameAPI::getPortfolio() const {
+    std::vector<std::pair<std::string, std::map<std::string, double>>> data;
     for (const auto& inv : sim_.getPortfolio().getInvestments()) {
-        data.push_back({
+        data.push_back({inv->getName(),{
             {"amount", inv->getAmount()},
             {"profit", inv->getProfit()},
             {"rate", inv->getRate()}
-        });
+        }});
     }
     return data;
 }
