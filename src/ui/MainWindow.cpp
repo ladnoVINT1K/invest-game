@@ -19,6 +19,9 @@ MainWindow::MainWindow(QWidget *parent)
     market_butt = new QPushButton("Рынок", this);
     next_butt = new QPushButton("Следующий месяц", this);
 
+    balanceLabel_ = new QLabel(this);
+    capitalLabel_ = new QLabel(this);
+
     QHBoxLayout *buttonLayout = new QHBoxLayout();
     buttonLayout->addWidget(reset_butt);
     buttonLayout->addStretch();
@@ -26,6 +29,8 @@ MainWindow::MainWindow(QWidget *parent)
     buttonLayout->addWidget(next_butt);
 
     QVBoxLayout *mainLayout = new QVBoxLayout(centralWidget);
+    mainLayout->addWidget(balanceLabel_);
+    mainLayout->addWidget(capitalLabel_);
     mainLayout->addWidget(portfolioTable_);
     mainLayout->addLayout(buttonLayout);
 
@@ -46,6 +51,9 @@ MainWindow::~MainWindow() = default;
 void MainWindow::updateUi() {
     auto portfolio = api_.getPortfolio();
     QTableWidget *table = portfolioTable_;
+
+    balanceLabel_->setText(QString("Деньги: %1").arg(api_.getCapital()));
+    capitalLabel_->setText(QString("Капитализация: %1").arg(api_.getCapital() + api_.getProfit()));
 
     table->clearContents();
     table->setRowCount(0);

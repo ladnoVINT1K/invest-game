@@ -26,6 +26,8 @@ private slots:
     void on_market_butt_clicked();
 
 private:
+    QLabel *balanceLabel_;
+    QLabel *capitalLabel_;
     QTableWidget *portfolioTable_;
     QPushButton *reset_butt;
     QPushButton *market_butt;
