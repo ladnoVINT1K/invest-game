@@ -4,10 +4,10 @@
 #include <QDialog>
 #include <QPushButton>
 #include <QLabel>
+#include <QVBoxLayout>
 #include <QtCharts/QChart>
 #include <QtCharts/QChartView>
 #include <QtCharts/QCandlestickSeries>
-#include <QVBoxLayout>
 #include "GameAPI.h"
 
 namespace Ui {

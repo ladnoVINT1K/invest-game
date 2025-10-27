@@ -23,17 +23,17 @@ add_subdirectory(src/core)
 add_executable(InvestmentManager 
     testGlobal.cpp
 
-    src/ui/mainwindow.h
-    src/ui/mainwindow.cpp
+    src/ui/MainWindow.h
+    src/ui/MainWindow.cpp
 
-    src/ui/inputdialog.h
-    src/ui/inputdialog.cpp
+    src/ui/InputDialog.h
+    src/ui/InputDialog.cpp
 
-    src/ui/marketwindow.h
-    src/ui/marketwindow.cpp
+    src/ui/MarketWindow.h
+    src/ui/MarketWindow.cpp
 
-    src/ui/assetwindow.h
-    src/ui/assetwindow.cpp
+    src/ui/AssetWindow.h
+    src/ui/AssetWindow.cpp
 
 )
 

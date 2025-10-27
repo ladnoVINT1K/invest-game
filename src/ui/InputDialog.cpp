@@ -1,4 +1,4 @@
-#include "inputdialog.h"
+#include "InputDialog.h"
 #include <QHBoxLayout>
 
 InputDialog::InputDialog(QWidget *parent)
@@ -43,6 +43,7 @@ void InputDialog::on_pushButton_clicked()
 
 int InputDialog::getCapital() const
 {
-    return capital_spin->value();
+    // return capital_spin->value();
+    return 0;
 }
 

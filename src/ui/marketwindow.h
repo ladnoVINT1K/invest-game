@@ -5,7 +5,7 @@
 #include "GameAPI.h"
 #include <QPushButton>
 #include <QTableWidget>
-#include "assetwindow.h"
+#include "AssetWindow.h"
 
 
 class MarketWindow : public QDialog

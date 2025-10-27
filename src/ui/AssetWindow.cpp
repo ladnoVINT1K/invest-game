@@ -1,4 +1,4 @@
-#include "assetwindow.h"
+#include "AssetWindow.h"
 #include <QtCharts/QChart>
 #include <QtCharts/QCandlestickSet>
 #include <QtCharts/QValueAxis>

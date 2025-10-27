@@ -6,9 +6,9 @@
 #include <QPushButton>
 #include <QLabel>
 #include "GameAPI.h"
-#include "inputdialog.h"
-#include "marketwindow.h"
-#include "assetwindow.h"
+#include "InputDialog.h"
+#include "MarketWindow.h"
+#include "AssetWindow.h"
 
 class MainWindow : public QMainWindow
 {
