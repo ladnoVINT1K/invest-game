@@ -61,6 +61,7 @@ AssetWindow::AssetWindow(GameAPI& api, QString &symbol, QWidget *parent)
     QValueAxis *axisX = new QValueAxis();
     axisX->setTitleText("Время");
     axisX->setLabelFormat("%d");
+    axisX->setTickCount(series_->count() + 1);
 
     QValueAxis *axisY = new QValueAxis();
     axisY->setTitleText("Цена");
@@ -68,7 +69,6 @@ AssetWindow::AssetWindow(GameAPI& api, QString &symbol, QWidget *parent)
     chart_->addAxis(axisY, Qt::AlignLeft);
     series_->attachAxis(axisX);
     series_->attachAxis(axisY);
-
 
     chartView_ = new QChartView(chart_);
     chartView_->setRenderHint(QPainter::Antialiasing);
@@ -86,11 +86,12 @@ AssetWindow::~AssetWindow() = default;
 
 void AssetWindow::updateChart() {
     series_->clear();
-    int i = 0;
+    series_->setBodyWidth(0.2);
+    double i = 0;
     auto candles = api_.getCandles(symbol_.toStdString());
-    qDebug()<< candles.size();
     for (const auto &c : candles) {
-        series_->append(new QCandlestickSet(c.open, c.high + 2, c.low - 2, c.close, i++));
+        series_->append(new QCandlestickSet(c.open, c.high, c.low, c.close, i));
+        i += 0.5;
     }
 
     if (series_->count() > 0) {
@@ -101,7 +102,10 @@ void AssetWindow::updateChart() {
             maxHigh = qMax(maxHigh, candle->high());
         }
         static_cast<QValueAxis*>(chart_->axisY())->setRange(minLow * 0.98, maxHigh * 1.02);
-        static_cast<QValueAxis*>(chart_->axisX())->setRange(0, 11);
+
+        qreal minX = series_->sets().first()->timestamp();
+        qreal maxX = series_->sets().last()->timestamp();
+        static_cast<QValueAxis*>(chart_->axisX())->setRange(minX - 1, maxX + 1);
     }
 }
 
