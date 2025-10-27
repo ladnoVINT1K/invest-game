@@ -33,7 +33,6 @@ private:
     QPushButton *market_butt;
     QPushButton *next_butt;
     GameAPI api_;
-    int capital_;
 };
 
 #endif // MAINWINDOW_H

@@ -46,7 +46,7 @@ AssetWindow::AssetWindow(GameAPI& api, QString &symbol, QWidget *parent)
     mainLayout->setContentsMargins(20, 10, 23, 10);
 
     chart_ = new QChart();
-    //chart_->setTitle("Свечной график актива");
+    //chart_->setTitle("Свечной график актива"); <- мне не нравится как с названием выглядит -_-
     chart_->setAnimationOptions(QChart::SeriesAnimations);
     chart_->legend()->setVisible(true);
     chart_->legend()->setAlignment(Qt::AlignBottom);
@@ -74,9 +74,7 @@ AssetWindow::AssetWindow(GameAPI& api, QString &symbol, QWidget *parent)
     chartView_->setRenderHint(QPainter::Antialiasing);
     chartView_->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-
     chartLayout_->addWidget(chartView_);
-
 
     updateChart();
 
@@ -102,14 +100,17 @@ void AssetWindow::updateChart() {
             maxHigh = qMax(maxHigh, candle->high());
         }
         static_cast<QValueAxis*>(chart_->axisY())->setRange(minLow * 0.98, maxHigh * 1.02);
+        //подгон под значения оси у
 
         qreal minX = series_->sets().first()->timestamp();
         qreal maxX = series_->sets().last()->timestamp();
         static_cast<QValueAxis*>(chart_->axisX())->setRange(minX - 1, maxX + 1);
+        //подгон оси x
     }
 }
 
-void AssetWindow::on_buy_butt_clicked()
+void AssetWindow::on_buy_butt_clicked() /*<- позаимствовала у вас(ну как в целом весь фронт, просто писала своими ручками),
+                                                 потому что мне лень думать*/
 {
     bool ok;
     double amount = QInputDialog::getDouble(this, "Купить", "Сколько вложить:", 1000, 0, 1e9, 2, &ok);

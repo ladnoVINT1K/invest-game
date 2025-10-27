@@ -23,10 +23,11 @@ MainWindow::MainWindow(QWidget *parent)
     capitalLabel_ = new QLabel(this);
 
     QHBoxLayout *buttonLayout = new QHBoxLayout();
-    buttonLayout->addWidget(reset_butt);
-    buttonLayout->addStretch();
+
     buttonLayout->addWidget(market_butt);
     buttonLayout->addWidget(next_butt);
+    buttonLayout->addStretch();
+    buttonLayout->addWidget(reset_butt);
 
     QVBoxLayout *mainLayout = new QVBoxLayout(centralWidget);
     mainLayout->addWidget(balanceLabel_);
@@ -44,11 +45,17 @@ MainWindow::MainWindow(QWidget *parent)
     statusBar();
     menuBar();
     updateUi();
+    // market_butt->setEnabled(false); <- делаю кнопки неактивными, пока не задам капитал(кнопочка reset)
+    // next_butt->setEnabled(false);
 }
 
 MainWindow::~MainWindow() = default;
 
 void MainWindow::updateUi() {
+
+    // market_butt->setEnabled(true); <- делаю активными :)
+    // next_butt->setEnabled(true);
+
     auto portfolio = api_.getPortfolio();
     QTableWidget *table = portfolioTable_;
 
@@ -89,18 +96,18 @@ void MainWindow::updateUi() {
 
 void MainWindow::on_reset_butt_clicked() {
     InputDialog dialog(this);
+    int capital_;
     if (dialog.exec() == QDialog::Accepted) {
         capital_ = dialog.getCapital();
+        //api_.reset(); <- опасно для свеч
+        //api_ = *(new GameAPI(capital_)); <- мне уже плохо
         updateUi();
-        //api_.reset();
-        //свечи после этой функции не рисуются, господин
     }
 }
 
 void MainWindow::onAssetCellClicked(int row, int column) {
     if (column != 0) return;
     QString symbol = portfolioTable_->item(row, 0)->text();
-    qDebug() << symbol << '\n';
     AssetWindow asset(api_, symbol, this);
     if (asset.exec() == QDialog::Accepted) {
         updateUi();

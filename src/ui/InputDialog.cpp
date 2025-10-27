@@ -43,7 +43,6 @@ void InputDialog::on_pushButton_clicked()
 
 int InputDialog::getCapital() const
 {
-    // return capital_spin->value();
-    return 0;
+    return capital_spin->value();
 }
 

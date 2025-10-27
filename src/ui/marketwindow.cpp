@@ -10,6 +10,7 @@ MarketWindow::MarketWindow(GameAPI& api, QWidget *parent)
     marketTable_ = new QTableWidget(this);
     marketTable_->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     connect(marketTable_, &QTableWidget::cellClicked, this, &MarketWindow::onMarketCellClicked);
+    // если сильно надо, то могу сделать кликабельной всю таблицу ;)
 
     cancel_butt = new QPushButton("Закрыть", this);
     cancel_butt->setFixedHeight(29);
@@ -63,7 +64,7 @@ void MarketWindow::updateUi() {
         table->setItem(row, 3, volItem);
     }
 
-    //table->resizeColumnsToContents();
+    //table->resizeColumnsToContents(); <- мне плохо х2
 }
 
 void MarketWindow::onMarketCellClicked(int row, int column) {
