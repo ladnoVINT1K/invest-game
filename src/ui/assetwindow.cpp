@@ -52,7 +52,7 @@ AssetWindow::AssetWindow(GameAPI& api, QString &symbol, QWidget *parent)
     chart_->legend()->setAlignment(Qt::AlignBottom);
 
     series_ = new QCandlestickSeries();
-    series_->setName("Цена");
+    series_->setName(symbol_);
     series_->setIncreasingColor(Qt::green);
     series_->setDecreasingColor(Qt::red);
 
@@ -91,7 +91,7 @@ void AssetWindow::updateChart() {
     auto candles = api_.getCandles(symbol_.toStdString());
     for (const auto &c : candles) {
         series_->append(new QCandlestickSet(c.open, c.high, c.low, c.close, i));
-        i += 0.5;
+        i += 1;
     }
 
     if (series_->count() > 0) {
