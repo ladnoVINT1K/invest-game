@@ -85,3 +85,19 @@ bool GameAPI::isGrowing(const std::string& symbol) const {
 
     return last.close > prev.close;
 }
+
+double GameAPI::buyFundUnits(double money) {
+    return sim_.getPortfolio().buyFundUnits(money);
+}
+
+double GameAPI::sellFundUnits(double units) {
+    return sim_.getPortfolio().sellFundUnits(units);
+}
+
+double GameAPI::getFundUnits() const {
+    return sim_.getPortfolio().getFundUnits();
+}
+
+double GameAPI::getFundPrice() const {
+    return sim_.getPortfolio().getFundPricePerUnit();
+}

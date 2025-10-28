@@ -23,6 +23,7 @@ public:
     // === Доступ к данным ===
     const MarketModel& getMarket() const { return market_; }
     const Portfolio& getPortfolio() const { return portfolio_; }
+    Portfolio& getPortfolio() { return portfolio_; } // cursed 
     const std::vector<Snapshot>& getHistory() const { return history_; }
 
     int getCurrentMonth() const { return month_; }

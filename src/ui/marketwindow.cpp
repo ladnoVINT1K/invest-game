@@ -1,4 +1,4 @@
-#include "MarketWindow.h"
+#include "marketwindow.h"
 #include <QHeaderView>
 
 MarketWindow::MarketWindow(GameAPI& api, QWidget *parent)

@@ -1,3 +1,6 @@
+# Включаем -fPIC ДО объявления библиотеки
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 add_library(core STATIC
     InvestmentAsset.cpp
     Portfolio.cpp

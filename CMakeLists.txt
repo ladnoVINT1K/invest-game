@@ -14,7 +14,7 @@ find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets Charts)
 # Пути к подпроектам
 add_subdirectory(src/core)
 # add_subdirectory(src/utils)
-# add_subdirectory(src/ui)
+add_subdirectory(src/ui)
 # add_subdirectory(src/tests)
 
 
@@ -29,8 +29,8 @@ add_executable(InvestmentManager
     src/ui/InputDialog.h
     src/ui/InputDialog.cpp
 
-    src/ui/MarketWindow.h
-    src/ui/MarketWindow.cpp
+    src/ui/marketwindow.h
+    src/ui/marketwindow.cpp
 
     src/ui/AssetWindow.h
     src/ui/AssetWindow.cpp
@@ -50,6 +50,8 @@ target_link_libraries(InvestmentManager
 # Пути к заголовочным
 target_include_directories(InvestmentManager PRIVATE
     src/core
-    src/utils
-    #src/ui
+    # src/utils
+    src/ui
 )
+
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)

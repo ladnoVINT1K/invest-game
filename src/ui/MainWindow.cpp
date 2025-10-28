@@ -5,7 +5,7 @@
 #include <QHeaderView>
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent), api_()
+    : QMainWindow(parent), api_(), capitalof_(api_.getCapital())
 {
 
     QWidget *centralWidget = new QWidget(this);
@@ -60,7 +60,7 @@ void MainWindow::updateUi() {
     QTableWidget *table = portfolioTable_;
 
     balanceLabel_->setText(QString("Деньги: %1").arg(api_.getCapital()));
-    capitalLabel_->setText(QString("Капитализация: %1").arg(api_.getCapital() + api_.getProfit()));
+    capitalLabel_->setText(QString("Капитализация: %1").arg(capitalof_));
 
     table->clearContents();
     table->setRowCount(0);
@@ -117,6 +117,7 @@ void MainWindow::onAssetCellClicked(int row, int column) {
 void MainWindow::on_next_butt_clicked()
 {
     api_.nextStep();
+    capitalof_ += api_.getProfit();
     updateUi();
 }
 

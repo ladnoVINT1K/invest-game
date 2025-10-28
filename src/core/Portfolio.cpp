@@ -3,7 +3,7 @@
 #include <iostream>
 
 Portfolio::Portfolio(double initialCapital, double taxRate)
-    : capital_(initialCapital), taxRate_(taxRate), lastProfit_(0.0)
+    : capital_(initialCapital), taxRate_(taxRate), lastProfit_(0.0), fundShares_(initialCapital)
 {}
 
 void Portfolio::addInvestment(std::shared_ptr<Investment> inv) {
@@ -63,4 +63,31 @@ void Portfolio::withdrawCapital(double amount) {
 
 void Portfolio::clear() {
     investments_.clear();
+}
+
+// === STUFF === DONT USE 
+double Portfolio::getFundPricePerUnit() const {
+    return fundShares_.getPricePerUnit(totalValue());
+}
+
+double Portfolio::getFundUnits() const {
+    return fundShares_.getPlayerUnits();
+}
+
+double Portfolio::getFundTotalUnits() const {
+    return fundShares_.getTotalUnits();
+}
+
+double Portfolio::buyFundUnits(double money) {
+    if (money > capital_) return 0.0;
+
+    double units = fundShares_.buyUnits(money, totalValue());
+    capital_ -= money;
+    return units;
+}
+
+double Portfolio::sellFundUnits(double units) {
+    double payout = fundShares_.sellUnits(units, totalValue());
+    capital_ += payout;
+    return payout;
 }

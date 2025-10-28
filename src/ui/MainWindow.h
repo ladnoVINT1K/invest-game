@@ -7,7 +7,7 @@
 #include <QLabel>
 #include "GameAPI.h"
 #include "InputDialog.h"
-#include "MarketWindow.h"
+#include "marketwindow.h"
 #include "AssetWindow.h"
 
 class MainWindow : public QMainWindow
@@ -33,6 +33,7 @@ private:
     QPushButton *market_butt;
     QPushButton *next_butt;
     GameAPI api_;
+    double capitalof_;
 };
 
 #endif // MAINWINDOW_H
