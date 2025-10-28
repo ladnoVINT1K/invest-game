@@ -63,8 +63,6 @@ void MarketWindow::updateUi() {
         table->setItem(row, 2, trendItem);
         table->setItem(row, 3, volItem);
     }
-
-    //table->resizeColumnsToContents(); <- мне плохо х2
 }
 
 void MarketWindow::onMarketCellClicked(int row, int column) {
