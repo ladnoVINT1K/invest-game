@@ -11,6 +11,10 @@ struct MarketAsset {
     double volatility;
 };
 
+struct result {
+    double amount_before;
+    double amount_after;
+};
 
 class GameAPI {
 public:

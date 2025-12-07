@@ -21,6 +21,9 @@ private slots:
     void on_cancel_butt_clicked();
     void onMarketCellClicked(int row, int column);
 
+protected:
+    void keyPressEvent(QKeyEvent *event) override;  // ← добавили
+
 private:
     QTableWidget *marketTable_;
     QPushButton *cancel_butt;

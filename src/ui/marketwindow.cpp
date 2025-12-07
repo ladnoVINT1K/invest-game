@@ -1,5 +1,6 @@
 #include "marketwindow.h"
 #include <QHeaderView>
+#include <QKeyEvent>
 
 MarketWindow::MarketWindow(GameAPI& api, QWidget *parent)
     : QDialog(parent), api_(api)
@@ -23,6 +24,15 @@ MarketWindow::MarketWindow(GameAPI& api, QWidget *parent)
     mainLayout->setContentsMargins(20, 20, 22, 13);
 
     updateUi();
+}
+
+void MarketWindow::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Escape) {
+        on_cancel_butt_clicked();  
+        return;                     
+    }
+    QDialog::keyPressEvent(event);
 }
 
 MarketWindow::~MarketWindow() = default;

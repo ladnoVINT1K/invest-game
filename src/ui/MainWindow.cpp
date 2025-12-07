@@ -61,7 +61,7 @@ void MainWindow::updateUi() {
     QTableWidget *table = portfolioTable_;
 
     balanceLabel_->setText(QString("Деньги: %1").arg(capitalof_ - api_.sim_.portfolio_.totalValue())); // очев, что капитализация - купленные активы = свободные деньги
-    std::cout << "|" << api_.sim_.portfolio_.totalValue() << '|' << '\n' << "\n";
+    // std::cout << "|" << api_.sim_.portfolio_.totalValue() << '|' << '\n' << "\n";
     capitalLabel_->setText(QString("Капитализация: %1").arg(capitalof_));
 
     table->clearContents();

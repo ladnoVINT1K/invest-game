@@ -32,6 +32,9 @@ private slots:
 
     void on_sell_all_butt_clicked();
 
+protected:
+    void keyPressEvent(QKeyEvent *event) override;
+
 private:
     GameAPI& api_;
     QString& symbol_;

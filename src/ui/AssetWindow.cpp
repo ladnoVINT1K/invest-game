@@ -5,6 +5,7 @@
 #include <iostream>
 #include <QtCharts/QValueAxis>
 #include <QDebug>
+#include <QKeyEvent>
 #include <QRandomGenerator>
 #include <QInputDialog>
 #include <QMessageBox>
@@ -61,8 +62,8 @@ AssetWindow::AssetWindow(GameAPI& api, QString &symbol, QWidget *parent)
 
     series_ = new QCandlestickSeries();
     series_->setName(symbol_);
-    series_->setIncreasingColor(Qt::green);
     series_->setDecreasingColor(Qt::red);
+    series_->setIncreasingColor(Qt::green);
 
     chart_->addSeries(series_);
 
@@ -86,6 +87,15 @@ AssetWindow::AssetWindow(GameAPI& api, QString &symbol, QWidget *parent)
 
     updateChart();
 
+}
+
+void AssetWindow::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Escape) {
+        on_cancel_butt_clicked();   // или reject();
+        return;                     // чтобы базовый QDialog не обрабатывал Esc сам
+    }
+    QDialog::keyPressEvent(event);
 }
 
 AssetWindow::~AssetWindow() = default;
@@ -130,7 +140,7 @@ void AssetWindow::updateChart() {
         minLow = qMin(minLow, c.low);
         maxHigh = qMax(maxHigh, c.high);
         i += 1;
-        std::cout << "\n" << c.low << " | " << c.open << " | " << c.close << " | " << c.low;
+        // std::cout << "\n" << c.low << " | " << c.open << " | " << c.close << " | " << c.low;
     }
     std::cout << "\n";
 
@@ -152,7 +162,7 @@ void AssetWindow::updateChart() {
         
         static_cast<QValueAxis*>(chart_->axisX())->setRange(-0.5, i + 0.5);
         
-        // ✅ ПРАВИЛЬНЫЙ label format для QValueAxis
+        // ПРАВИЛЬНЫЙ label format для QValueAxis
         static_cast<QValueAxis*>(chart_->axisY())->setLabelFormat("%g");
     }
 }

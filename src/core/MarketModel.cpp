@@ -102,7 +102,7 @@ void MarketModel::update() {
     static std::normal_distribution<> normalDist(0, 1);
     static std::uniform_real_distribution<> jumpDist(0.0, 1.0);
 
-    double dt = 30.0;  // ✅ МЕСЯЦ вместо дня!
+    double dt = 30.0;  // ✅ МЕСЯЦ вместо дня! Вот твоя ошибка!
 
     for (auto& [symbol, state] : assets) {
         Candle newCandle;

@@ -26,27 +26,29 @@ double Bond::getProfit() {
 void Bond::updatePrice(const MarketModel& market) {
     lastAmount_ = amount_;
 
+    double marketPrice = market.getPrice(name_);
+    double positionValueBefore = amount_;  // стоимость до апдейта
+
     // купон за месяц
     double couponPayment = faceValue_ * (couponRate_ / 12.0) * static_cast<double>(count_);
 
-    // рыночная цена за единицу (если модель даёт цену) — используем для переоценки позиции
-    double marketPrice = market.getPrice(name_);
+    // новая рыночная стоимость
     if (marketPrice > 0.0) {
         amount_ = marketPrice * static_cast<double>(count_);
     } else {
-        // если рынка нет — оставим номинал как оценку
         amount_ = faceValue_ * static_cast<double>(count_);
     }
     amount_ += couponPayment;
 
-    rate_ = couponRate_ / 12.0;
+    if (positionValueBefore > 0.0) {
+        rate_ = (amount_ - positionValueBefore) / positionValueBefore;
+    } else {
+        rate_ = 0.0;
+    }
 
-    // уменьшение срока (забили, срока нет)
     if (monthsToMaturity_ > 0) {
         monthsToMaturity_ -= 1;
         if (monthsToMaturity_ == 0) {
-            // погашение — выплата номинала владельцу
-            // Здесь оставим amount_ равным номиналу * count_ (после погашения можно пометить объект как мёртвый)
             amount_ = faceValue_ * static_cast<double>(count_);
             couponRate_ = 0.0;
             rate_ = 0.0;
