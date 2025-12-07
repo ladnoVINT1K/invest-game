@@ -31,9 +31,6 @@ void Deposit::updatePrice(const MarketModel& /*market*/) {
         if (autoRenew_) {
             monthsPassed_ = 0; 
         } else {
-            // тут можно пометить депозит как "выплаченный" / закрыть / перевести в cash
-            // Для простоты — оставим сумму на месте, дальнейшие начисления прекращаются
-            // Чтобы прекратить начисления, можно установить annualRate_ = 0.0;
             annualRate_ = 0.0;
             rate_ = 0.0;
         }

@@ -48,11 +48,9 @@ public:
     bool isGrowing(const std::string& symbol) const;
 
     // === STUFF ===
-    double buyFundUnits(double money);
-    double sellFundUnits(double units);
-    double getFundUnits() const;
-    double getFundPrice() const;
-
-private:
+    // double buyFundUnits(double money);
+    // double sellFundUnits(double units);
+    // double getFundUnits() const;
+    // double getFundPrice() const;
     Simulation sim_;
 };

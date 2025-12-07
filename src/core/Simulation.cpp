@@ -7,7 +7,7 @@
 Simulation::Simulation(double initialCapital, double taxRate)
     : portfolio_(initialCapital, taxRate)
 {
-    int prewarmMonths = 12; // 12 месяцев "до игрока"
+    int prewarmMonths = 50; // 50 месяцев "до игрока"
     for (int i = 0; i < prewarmMonths; ++i) {
         market_.update();
     }
@@ -48,7 +48,7 @@ void Simulation::reset() {
 void Simulation::buy(const std::string& symbol, double amount) {
     if (amount <= 0.0 || amount > portfolio_.getCapital()) return;
 
-    if (symbol == "GOLD" || symbol == "SILVER") {
+    if (symbol == "GOLD" || symbol == "SILVER" || symbol == "PLATINUM") {
         double price = market_.getPrice(symbol);
         double qty = amount / price;
         portfolio_.addInvestment(std::make_shared<Metal>(symbol, qty, price));

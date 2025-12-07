@@ -33,15 +33,14 @@ void MarketWindow::updateUi() {
 
     table->clearContents();
     table->setRowCount(0);
-    table->setColumnCount(4);
-    table->setHorizontalHeaderLabels({"Актив", "Цена", "Тренд", "Волатильность"});
+    table->setColumnCount(3);
+    table->setHorizontalHeaderLabels({"Актив", "Цена", "Тренд"});
     table->horizontalHeader()->setStretchLastSection(true);
     table->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     for (const auto &entry : marketAssets) {
         QString symbol = QString::fromStdString(entry.symbol);
         double price = entry.price;
         double trend = entry.trend;
-        double vol = entry.volatility;
 
         int row = table->rowCount();
         table->insertRow(row);
@@ -53,7 +52,6 @@ void MarketWindow::updateUi() {
 
         QTableWidgetItem *priceItem = new QTableWidgetItem(QString::number(price, 'f', 2));
         QTableWidgetItem *trendItem = new QTableWidgetItem(QString::number(trend * 100, 'f', 2) + "%");
-        QTableWidgetItem *volItem = new QTableWidgetItem(QString::number(vol * 100, 'f', 2) + "%");
 
         bool up = api_.isGrowing(symbol.toStdString());
         nameItem->setForeground(QBrush(up ? Qt::green : Qt::red));
@@ -61,9 +59,7 @@ void MarketWindow::updateUi() {
         table->setItem(row, 0, nameItem);
         table->setItem(row, 1, priceItem);
         table->setItem(row, 2, trendItem);
-        table->setItem(row, 3, volItem);
     }
-
     //table->resizeColumnsToContents(); <- мне плохо х2
 }
 

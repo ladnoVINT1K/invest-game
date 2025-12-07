@@ -55,5 +55,4 @@ private:
     double capital_;     // текущий капитал фонда
     double taxRate_;     // налог на прибыль
     double lastProfit_;  // прибыль за предыдущий шаг
-    FundShares fundShares_; // паи фонда
 };

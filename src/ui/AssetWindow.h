@@ -30,12 +30,15 @@ private slots:
 
     void on_sell_butt_clicked();
 
+    void on_sell_all_butt_clicked();
+
 private:
     GameAPI& api_;
     QString& symbol_;
     QPushButton *buy_butt;
     QPushButton *sell_butt;
     QPushButton *cancel_butt;
+    QPushButton *sell_all_butt;
     QChart *chart_;
     QFrame *chartFrame_;
     QChartView *chartView_;

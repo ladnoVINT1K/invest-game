@@ -38,10 +38,9 @@ public:
 
     // === События (UI-обратные вызовы) ===
     void onUpdate(std::function<void(const Snapshot&)> callback);
-
+    Portfolio portfolio_;
 private:
     MarketModel market_;
-    Portfolio portfolio_;
 
     int month_ = 0;
     bool paused_ = false;

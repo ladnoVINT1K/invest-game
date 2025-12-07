@@ -1,5 +1,6 @@
 #include "MainWindow.h"
 #include <QDebug>
+#include <iostream>
 #include <QVBoxLayout>
 #include <QMessageBox>
 #include <QHeaderView>
@@ -15,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     portfolioTable_->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     connect(portfolioTable_, &QTableWidget::cellClicked, this, &MainWindow::onAssetCellClicked);
 
-    reset_butt = new QPushButton("reset", this);
+    // reset_butt = new QPushButton("reset", this);
     market_butt = new QPushButton("Рынок", this);
     next_butt = new QPushButton("Следующий месяц", this);
 
@@ -26,8 +27,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     buttonLayout->addWidget(market_butt);
     buttonLayout->addWidget(next_butt);
-    buttonLayout->addStretch();
-    buttonLayout->addWidget(reset_butt);
+    //buttonLayout->addStretch();
+    //buttonLayout->addWidget(reset_butt);
 
     QVBoxLayout *mainLayout = new QVBoxLayout(centralWidget);
     mainLayout->addWidget(balanceLabel_);
@@ -35,7 +36,7 @@ MainWindow::MainWindow(QWidget *parent)
     mainLayout->addWidget(portfolioTable_);
     mainLayout->addLayout(buttonLayout);
 
-    connect(reset_butt, &QPushButton::clicked, this, &MainWindow::on_reset_butt_clicked);
+    // connect(reset_butt, &QPushButton::clicked, this, &MainWindow::on_reset_butt_clicked);
     connect(market_butt, &QPushButton::clicked, this, &MainWindow::on_market_butt_clicked);
     connect(next_butt, &QPushButton::clicked, this, &MainWindow::on_next_butt_clicked);
 
@@ -59,7 +60,8 @@ void MainWindow::updateUi() {
     auto portfolio = api_.getPortfolio();
     QTableWidget *table = portfolioTable_;
 
-    balanceLabel_->setText(QString("Деньги: %1").arg(api_.getCapital()));
+    balanceLabel_->setText(QString("Деньги: %1").arg(capitalof_ - api_.sim_.portfolio_.totalValue())); // очев, что капитализация - купленные активы = свободные деньги
+    std::cout << "|" << api_.sim_.portfolio_.totalValue() << '|' << '\n' << "\n";
     capitalLabel_->setText(QString("Капитализация: %1").arg(capitalof_));
 
     table->clearContents();

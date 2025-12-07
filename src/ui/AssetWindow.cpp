@@ -1,6 +1,8 @@
+#pragma once
 #include "AssetWindow.h"
 #include <QtCharts/QChart>
 #include <QtCharts/QCandlestickSet>
+#include <iostream>
 #include <QtCharts/QValueAxis>
 #include <QDebug>
 #include <QRandomGenerator>
@@ -19,12 +21,16 @@ AssetWindow::AssetWindow(GameAPI& api, QString &symbol, QWidget *parent)
     sell_butt = new QPushButton("Продать", this);
     sell_butt->setFixedSize(191, 41);
 
+    sell_all_butt = new QPushButton("Закрыть актив", this);
+    sell_all_butt->setFixedSize(191,41);
+
     cancel_butt = new QPushButton("Закрыть", this);
     cancel_butt->setFixedSize(191, 41);
 
     connect(buy_butt, &QPushButton::clicked, this, &AssetWindow::on_buy_butt_clicked);
     connect(sell_butt, &QPushButton::clicked, this, &AssetWindow::on_sell_butt_clicked);
     connect(cancel_butt, &QPushButton::clicked, this, &AssetWindow::on_cancel_butt_clicked);
+    connect(sell_all_butt, &QPushButton::clicked, this, &AssetWindow::on_sell_all_butt_clicked);
 
     chartFrame_ = new QFrame(this);
     chartFrame_->setFrameStyle(QFrame::StyledPanel | QFrame::Raised);
@@ -37,7 +43,9 @@ AssetWindow::AssetWindow(GameAPI& api, QString &symbol, QWidget *parent)
     buttonLayout->addWidget(buy_butt);
     buttonLayout->addSpacing(10);
     buttonLayout->addWidget(sell_butt);
-    buttonLayout->addStretch();
+    buttonLayout->addSpacing(10);
+    buttonLayout->addWidget(sell_all_butt);
+    buttonLayout->addSpacing(10);
     buttonLayout->addWidget(cancel_butt);
 
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
@@ -46,7 +54,7 @@ AssetWindow::AssetWindow(GameAPI& api, QString &symbol, QWidget *parent)
     mainLayout->setContentsMargins(20, 10, 23, 10);
 
     chart_ = new QChart();
-    //chart_->setTitle("Свечной график актива"); <- мне не нравится как с названием выглядит -_-
+    //chart_->setTitle("Свечной график актива"); // <- мне не нравится как с названием выглядит -_-
     chart_->setAnimationOptions(QChart::SeriesAnimations);
     chart_->legend()->setVisible(true);
     chart_->legend()->setAlignment(Qt::AlignBottom);
@@ -82,32 +90,74 @@ AssetWindow::AssetWindow(GameAPI& api, QString &symbol, QWidget *parent)
 
 AssetWindow::~AssetWindow() = default;
 
+// void AssetWindow::updateChart() {
+//     series_->clear();
+//     series_->setBodyWidth(0.2);
+//     double i = 0;
+//     auto candles = api_.getCandles(symbol_.toStdString());
+//     for (const auto &c : candles) {
+//         series_->append(new QCandlestickSet(c.open, c.high, c.low, c.close, i));
+//         i += 1;
+//     }
+
+//     if (series_->count() > 0) {
+//         qreal minLow = series_->sets().first()->low();
+//         qreal maxHigh = series_->sets().first()->high();
+//         for (const auto *candle : series_->sets()) {
+//             minLow = qMin(minLow, candle->low());
+//             maxHigh = qMax(maxHigh, candle->high());
+//         }
+//         static_cast<QValueAxis*>(chart_->axisY())->setRange(minLow * 0.98, maxHigh * 1.02);
+//         //подгон под значения оси у
+
+//         qreal minX = series_->sets().first()->timestamp();
+//         qreal maxX = series_->sets().last()->timestamp();
+//         static_cast<QValueAxis*>(chart_->axisX())->setRange(minX - 1, maxX + 1);
+//         //подгон оси x
+//     }
+// }
 void AssetWindow::updateChart() {
     series_->clear();
-    series_->setBodyWidth(0.2);
+    
     double i = 0;
     auto candles = api_.getCandles(symbol_.toStdString());
+    
+    qreal minLow = std::numeric_limits<qreal>::max();
+    qreal maxHigh = std::numeric_limits<qreal>::min();
+    
     for (const auto &c : candles) {
         series_->append(new QCandlestickSet(c.open, c.high, c.low, c.close, i));
+        minLow = qMin(minLow, c.low);
+        maxHigh = qMax(maxHigh, c.high);
         i += 1;
+        std::cout << "\n" << c.low << " | " << c.open << " | " << c.close << " | " << c.low;
     }
+    std::cout << "\n";
 
     if (series_->count() > 0) {
-        qreal minLow = series_->sets().first()->low();
-        qreal maxHigh = series_->sets().first()->high();
-        for (const auto *candle : series_->sets()) {
-            minLow = qMin(minLow, candle->low());
-            maxHigh = qMax(maxHigh, candle->high());
+        series_->setBodyWidth(0.5);     // Тело свечи (влияет и на шпильки)
+        
+        qreal range = maxHigh - minLow;
+        qreal padding;
+        
+        if (range < 0.1) {              // Для мелких активов (DEP)
+            padding = qMax(range * 0.1, 0.005);  // Больше padding
+        } else {                        // Для больших (GOLD, BOND)
+            padding = range * 0.02;
         }
-        static_cast<QValueAxis*>(chart_->axisY())->setRange(minLow * 0.98, maxHigh * 1.02);
-        //подгон под значения оси у
-
-        qreal minX = series_->sets().first()->timestamp();
-        qreal maxX = series_->sets().last()->timestamp();
-        static_cast<QValueAxis*>(chart_->axisX())->setRange(minX - 1, maxX + 1);
-        //подгон оси x
+        
+        static_cast<QValueAxis*>(chart_->axisY())->setRange(
+            minLow - padding, maxHigh + padding
+        );
+        
+        static_cast<QValueAxis*>(chart_->axisX())->setRange(-0.5, i + 0.5);
+        
+        // ✅ ПРАВИЛЬНЫЙ label format для QValueAxis
+        static_cast<QValueAxis*>(chart_->axisY())->setLabelFormat("%g");
     }
 }
+
+
 
 void AssetWindow::on_buy_butt_clicked() /*<- позаимствовала у вас(ну как в целом весь фронт, просто писала своими ручками),
                                                  потому что мне лень думать*/
@@ -141,3 +191,15 @@ void AssetWindow::on_sell_butt_clicked()
     }
 }
 
+void AssetWindow::on_sell_all_butt_clicked() {
+    double amount;
+    auto port = api_.getPortfolio();
+    for (auto i : port) {
+        if (i.first == symbol_.toStdString()) {
+            amount = i.second.at("amount");
+        }
+    }
+    api_.sell(symbol_.toStdString(), amount);
+    updateChart();
+
+}
